@@ -26,10 +26,18 @@ namespace Form_Ripasso_pre_rientro
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            if (f.CheckLughezzaFissa(path) == false)
+                f.CreateLunghezzaFissa(path, pathTEMP);
         }
         private void buttonAggMyValue_Click(object sender, EventArgs e)
         {
+            if (f.CheckMioValore(path) == false)
+            {
+                f.CreateMyValue(path, pathTEMP);
+                MessageBox.Show("Campi aggiunti correttamente!");
+            }
+            else
+                MessageBox.Show("Campi già presenti!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
         private void buttonContaCampi_Click(object sender, EventArgs e)
