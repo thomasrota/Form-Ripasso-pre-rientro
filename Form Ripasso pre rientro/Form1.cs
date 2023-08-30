@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -42,11 +43,18 @@ namespace Form_Ripasso_pre_rientro
         private void buttonContaCampi_Click(object sender, EventArgs e)
         {
             int nCampi = f.ContaCampi(path);
-            MessageBox.Show("Il file ha " + nCampi + " campi!");
+            MessageBox.Show("Il file contiene " + nCampi + " campi!");
         }
         private void buttonLunghezzaRC_Click(object sender, EventArgs e)
         {
-
+            int nCampi = f.ContaCampi(path);
+            string[] maxLenght = f.LunghezzaRC(path, nCampi);
+            string lunghezze = "";
+            for (int i = 0; i < nCampi; i++)
+            {
+                lunghezze += $"{maxLenght[i]} con {maxLenght[i].Length} caratteri\n";
+            }
+            MessageBox.Show(lunghezze);
         }
         private void buttonAggRecord_Click(object sender, EventArgs e)
         {

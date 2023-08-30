@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 
 namespace Form_Ripasso_pre_rientro
 {
@@ -83,7 +84,7 @@ namespace Form_Ripasso_pre_rientro
                         for (int i = 0; i < dati.Length - 1; i++)
                             line += dati[i] + ";";
                         line += r.Next(10, 21) + ";0;";
-                        line = line.PadRight(256) + "##";
+                        line = line.PadRight(500) + "##";
                         sw.WriteLine(line);
                     }
                     sw.Close();
@@ -107,6 +108,32 @@ namespace Form_Ripasso_pre_rientro
                 sr.Close();
             }
             return count;
+        }
+        public string[] LunghezzaRC(string path, int nCampi)
+        {
+            string[] mLen = new string[nCampi + 1];
+            for (int i = 0; i < mLen.Length; i++)
+                mLen[i] = "";
+            string line;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                line = sr.ReadLine();
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    line = "";
+                    for (int i = 0; i < dati.Length; i++)
+                    {
+                        if (dati[i].Length > mLen[i].Length)
+                            mLen[i] = dati[i];
+                        line += dati[i] + ";";
+                    }
+                    if (line.Length > mLen[nCampi].Length)
+                        mLen[nCampi] = line;
+                }
+                sr.Close();
+            }
+            return mLen;
         }
     }
 }
