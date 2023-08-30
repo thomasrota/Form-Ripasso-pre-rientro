@@ -32,6 +32,7 @@ namespace Form_Ripasso_pre_rientro
         }
         private void buttonAggMyValue_Click(object sender, EventArgs e)
         {
+            CloseFormsInput();
             if (f.CheckMioValore(path) == false)
             {
                 f.CreateMyValue(path, pathTEMP);
@@ -42,32 +43,36 @@ namespace Form_Ripasso_pre_rientro
         }
         private void buttonContaCampi_Click(object sender, EventArgs e)
         {
+            CloseFormsInput();
             int nCampi = f.ContaCampi(path);
             MessageBox.Show("Il file contiene " + nCampi + " campi!");
         }
         private void buttonLunghezzaRC_Click(object sender, EventArgs e)
         {
+            CloseFormsInput();
             OpenFormInput<FormLunghezzaRC>();
         }
         private void buttonAggRecord_Click(object sender, EventArgs e)
         {
-
+            CloseFormsInput();
         }
         private void buttonVisualizza_Click(object sender, EventArgs e)
         {
-
+            CloseFormsInput();
         }
         private void buttonRicerca_Click(object sender, EventArgs e)
         {
+            CloseFormsInput();
             OpenFormInput<FormRicerca>();
         }
         private void buttonModifica_Click(object sender, EventArgs e)
         {
+            CloseFormsInput();
             OpenFormInput<FormModifica>();
         }
         private void buttonCancLogica_Click(object sender, EventArgs e)
         {
-
+            CloseFormsInput();
         }
         #endregion
         #region Funzioni
@@ -90,6 +95,19 @@ namespace Form_Ripasso_pre_rientro
             else
             {
                 FormInput.BringToFront();
+            }
+        }
+        // Funzione per chiudere form nel pannello
+        private void CloseFormsInput()
+        {
+            Form[] forms = new Form[panelInput.Controls.Count];
+            for (int i = 0; i < panelInput.Controls.Count; i++)
+            {
+                forms[i] = panelInput.Controls[i] as Form;
+            }
+            foreach (Form form in forms)
+            {
+                form.Close();
             }
         }
         #endregion
