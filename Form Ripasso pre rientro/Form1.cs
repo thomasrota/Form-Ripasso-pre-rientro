@@ -47,14 +47,7 @@ namespace Form_Ripasso_pre_rientro
         }
         private void buttonLunghezzaRC_Click(object sender, EventArgs e)
         {
-            int nCampi = f.ContaCampi(path);
-            string[] maxLenght = f.LunghezzaRC(path, nCampi);
-            string lunghezze = "";
-            for (int i = 0; i < nCampi; i++)
-            {
-                lunghezze += $"{maxLenght[i]} con {maxLenght[i].Length} caratteri\n";
-            }
-            MessageBox.Show(lunghezze);
+            OpenFormInput<FormLunghezzaRC>();
         }
         private void buttonAggRecord_Click(object sender, EventArgs e)
         {
