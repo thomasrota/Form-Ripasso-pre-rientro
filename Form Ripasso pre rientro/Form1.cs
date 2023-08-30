@@ -100,14 +100,10 @@ namespace Form_Ripasso_pre_rientro
         // Funzione per chiudere form nel pannello
         private void CloseFormsInput()
         {
-            Form[] forms = new Form[panelInput.Controls.Count];
-            for (int i = 0; i < panelInput.Controls.Count; i++)
+            Form FormInput = panelInput.Controls.OfType<Form>().FirstOrDefault();
+            if (FormInput != null)
             {
-                forms[i] = panelInput.Controls[i] as Form;
-            }
-            foreach (Form form in forms)
-            {
-                form.Close();
+                FormInput.Close();
             }
         }
         #endregion
