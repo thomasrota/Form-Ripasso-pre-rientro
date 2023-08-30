@@ -94,6 +94,19 @@ namespace Form_Ripasso_pre_rientro
             File.Move(pathTEMP, path);
             File.Delete(pathTEMP);
         }
-
+        // Funzione che conta il numero di campi
+        public int ContaCampi(string path)
+        {
+            int count;
+            string line;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                line = sr.ReadLine();
+                string[] dati = line.Split(';');
+                count = dati.Length - 1;
+                sr.Close();
+            }
+            return count;
+        }
     }
 }

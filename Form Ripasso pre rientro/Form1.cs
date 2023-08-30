@@ -38,11 +38,11 @@ namespace Form_Ripasso_pre_rientro
             }
             else
                 MessageBox.Show("Campi già presenti!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
         }
         private void buttonContaCampi_Click(object sender, EventArgs e)
         {
-
+            int nCampi = f.ContaCampi(path);
+            MessageBox.Show("Il file ha " + nCampi + " campi!");
         }
         private void buttonLunghezzaRC_Click(object sender, EventArgs e)
         {
