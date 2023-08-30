@@ -23,5 +23,26 @@ namespace Form_Ripasso_pre_rientro
             }
             return check;
         }
+        // Funzione che rende il file a lunghezza fissa
+        public void CreateLunghezzaFissa(string path, string pathTEMP)
+        {
+            string line;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                using (StreamWriter sw = new StreamWriter(pathTEMP, append: true))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        line = line.PadRight(500) + "##";
+                        sw.WriteLine(line);
+                    }
+                    sw.Close();
+                }
+                sr.Close();
+            }
+            File.Delete(path);
+            File.Move(pathTEMP, path);
+            File.Delete(pathTEMP);
+        }
     }
 }
