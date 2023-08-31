@@ -70,9 +70,9 @@
             // listViewLunghezzaRC
             // 
             this.listViewLunghezzaRC.HideSelection = false;
-            this.listViewLunghezzaRC.Location = new System.Drawing.Point(118, 48);
+            this.listViewLunghezzaRC.Location = new System.Drawing.Point(118, 25);
             this.listViewLunghezzaRC.Name = "listViewLunghezzaRC";
-            this.listViewLunghezzaRC.Size = new System.Drawing.Size(329, 188);
+            this.listViewLunghezzaRC.Size = new System.Drawing.Size(329, 220);
             this.listViewLunghezzaRC.TabIndex = 0;
             this.listViewLunghezzaRC.UseCompatibleStateImageBehavior = false;
             // 

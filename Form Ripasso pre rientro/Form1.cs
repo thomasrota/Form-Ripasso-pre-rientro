@@ -55,6 +55,7 @@ namespace Form_Ripasso_pre_rientro
         private void buttonAggRecord_Click(object sender, EventArgs e)
         {
             CloseFormsInput();
+            OpenFormInput<FormAggiuntaInCoda>();
         }
         private void buttonVisualizza_Click(object sender, EventArgs e)
         {

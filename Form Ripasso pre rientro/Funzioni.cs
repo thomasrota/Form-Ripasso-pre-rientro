@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace Form_Ripasso_pre_rientro
 {
@@ -134,6 +135,39 @@ namespace Form_Ripasso_pre_rientro
                 sr.Close();
             }
             return mLen;
+        }
+        // Funzione che controlla la dimensione dell'input
+        public bool CheckLunghezzaInput(int nCampi, string[] inputs)
+        {
+            string line = ""; 
+            for (int i = 0; i < nCampi; i++)
+            {
+                if (inputs[i].Length == 0)
+                {
+                    return false;
+                }
+                line += inputs[i] + ";";
+            }
+            if (nCampi == 11)
+                if (line.Length < 500)
+                    return true;
+                else return false;
+            else
+                if (line.Length < 455)
+                return true;
+            return false;
+        }
+        // Funzione che aggiunge dei record in coda
+        public void AggiungiInCoda(string path, int nCampi, string[] inputs)
+        {
+            string line = "";
+            for (int i = 0; i < nCampi; i++)
+                line += inputs[i] + ";";
+            using (StreamWriter sw = new StreamWriter(path, append: true))
+            {
+                sw.WriteLine(line.PadRight(500) + "##");
+                sw.Close();
+            }
         }
     }
 }
