@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.CodeDom;
 
 namespace Form_Ripasso_pre_rientro
 {
@@ -136,17 +137,15 @@ namespace Form_Ripasso_pre_rientro
             }
             return mLen;
         }
-        // Funzione che controlla la dimensione dell'input
+        // Funzione che controlla la dimensione dell'input e se è 'vuoto'
         public bool CheckLunghezzaInput(int nCampi, string[] inputs)
         {
             string line = ""; 
             for (int i = 0; i < nCampi; i++)
             {
-                if (inputs[i].Length == 0)
-                {
-                    return false;
-                }
                 line += inputs[i] + ";";
+                /*if (inputs[i].Length == 0)
+                   return false;*/
             }
             if (nCampi == 11)
                 if (line.Length < 500)
@@ -168,6 +167,30 @@ namespace Form_Ripasso_pre_rientro
                 sw.WriteLine(line.PadRight(500) + "##");
                 sw.Close();
             }
+        }
+        // Ricercare un record per campo chiave a scelta (se esiste, utilizzare il campo che contiene dati univoci);
+        public Tuple <string , int> Ricerca(string path, string search)
+        {
+            Tuple<string, int> pos;
+            string line;
+            int count = 0;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                line = sr.ReadLine();
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[0] == search)
+                    {
+                        sr.Close();
+                        pos = new Tuple<string, int>(line, count);
+                        return pos;
+                    }
+                    count++;
+                }
+                sr.Close();
+            }
+            return new Tuple<string, int>("", -1);
         }
     }
 }
