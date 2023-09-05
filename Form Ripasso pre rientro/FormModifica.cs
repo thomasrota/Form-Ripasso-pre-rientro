@@ -44,7 +44,7 @@ namespace Form_Ripasso_pre_rientro
 
         private void buttonModSearch_Click(object sender, EventArgs e)
         {
-            Tuple<string, int> searchResult = f.Ricerca(path, textBoxModSearch.Text);
+            Tuple<string, int> searchResult = f.Ricerca(path, textBoxModSearch.Text, false);
             if (textBoxModSearch.Text == "")
                 MessageBox.Show("Inserire un valore da cercare!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
@@ -70,7 +70,7 @@ namespace Form_Ripasso_pre_rientro
         }
         private void buttonMod_Click(object sender, EventArgs e)
         {
-            Tuple<string, int> searchResult = f.Ricerca(path, textBoxModSearch.Text);
+            Tuple<string, int> searchResult = f.Ricerca(path, textBoxModSearch.Text, false);
             int campi = f.ContaCampi(path);
             inputs = new string[campi];
             inputs[0] = textBoxModMunicipio.Text;

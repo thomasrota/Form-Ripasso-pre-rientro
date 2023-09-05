@@ -190,24 +190,43 @@ namespace Form_Ripasso_pre_rientro
             }
         }
         // Ricercare un record per campo chiave a scelta (se esiste, utilizzare il campo che contiene dati univoci);
-        public Tuple <string , int> Ricerca(string path, string search)
+        public Tuple<string, int> Ricerca(string path, string search, bool eliminato)
         {
-            Tuple<string, int> pos;
-            string line;
-            int count = 0;
+            Tuple<string, int> p;
             using (StreamReader sr = File.OpenText(path))
             {
-                line = sr.ReadLine();
-                while ((line = sr.ReadLine()) != null)
+                string line;
+                int pos = 0;
+                if (ContaCampi(path) == 11)
                 {
-                    string[] dati = line.Split(';');
-                    if (dati[0] == search)
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        sr.Close();
-                        pos = new Tuple<string, int>(line, count);
-                        return pos;
+                        string[] fields = line.Split(';');
+                        if (fields[6] == search)
+                        {
+                            if (((fields[10] == 0.ToString() && !eliminato) || (fields[10] == 1.ToString() && eliminato)) && pos != 0)
+                            {
+                                sr.Close();
+                                p = new Tuple<string, int>(line, pos);
+                                return p;
+                            }
+                        }
+                        pos++;
                     }
-                    count++;
+                }
+                else
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] fields = line.Split(';');
+                        if (fields[6] == search && pos != 0)
+                        {
+                            sr.Close();
+                            p = new Tuple<string, int>(line, pos);
+                            return p;
+                        }
+                        pos++;
+                    }
                 }
                 sr.Close();
             }
@@ -227,6 +246,63 @@ namespace Form_Ripasso_pre_rientro
                 csvRanWriter.Write(bytes, 0, bytes.Length);
                 csvRanWriter.Close();
             }
+        }
+        public void Cancellazione(string path, int nCampi, string inputs, int pos, int recordLen)
+        {
+            string line = "";
+            string[] fields = inputs.Split(';');
+            for (int i = 0; i < nCampi - 1; i++)
+                line += fields[i] + ";";
+            line += "1;";
+            line = line.PadRight(500) + "##";
+            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(line);
+                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
+                csvRanWriter.Write(bytes, 0, bytes.Length);
+                csvRanWriter.Close();
+            }
+        }
+        public void Recupera(string path, int nCampi, string inputs, int pos, int recordLen)
+        {
+            string line = "";
+            string[] fields = inputs.Split(';');
+            for (int i = 0; i < nCampi - 1; i++)
+                line += fields[i] + ";";
+            line += "0;";
+            line = line.PadRight(500) + "##";
+            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(line);
+                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
+                csvRanWriter.Write(bytes, 0, bytes.Length);
+                csvRanWriter.Close();
+            }
+        }
+        public void Ricompattazione(string path, string pathTEMP)
+        {
+            string line;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                using (StreamWriter sw = new StreamWriter(pathTEMP))
+                {
+                    line = sr.ReadLine();
+                    sw.WriteLine(line);
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] fields = line.Split(';');
+                        if (fields[10] == "0")
+                        {
+                            sw.WriteLine(line);
+                        }
+                    }
+                    sw.Close();
+                }
+                sr.Close();
+            }
+            File.Delete(path);
+            File.Move(pathTEMP, path);
+            File.Delete(pathTEMP);
         }
     }
 }

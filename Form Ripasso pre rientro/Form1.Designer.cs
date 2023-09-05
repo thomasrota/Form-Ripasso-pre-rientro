@@ -89,7 +89,7 @@
             this.buttonCancLogica.Name = "buttonCancLogica";
             this.buttonCancLogica.Size = new System.Drawing.Size(245, 34);
             this.buttonCancLogica.TabIndex = 8;
-            this.buttonCancLogica.Text = "Cancellazione logica";
+            this.buttonCancLogica.Text = "Cancellazione";
             this.buttonCancLogica.UseVisualStyleBackColor = false;
             this.buttonCancLogica.Click += new System.EventHandler(this.buttonCancLogica_Click);
             // 

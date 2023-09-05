@@ -75,6 +75,7 @@ namespace Form_Ripasso_pre_rientro
         private void buttonCancLogica_Click(object sender, EventArgs e)
         {
             CloseFormsInput();
+            OpenFormInput<FormCancellazione>();
         }
         #endregion
         #region Funzioni

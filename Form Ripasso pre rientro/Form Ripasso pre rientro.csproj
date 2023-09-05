@@ -58,6 +58,12 @@
     <Compile Include="FormAggiuntaInCoda.Designer.cs">
       <DependentUpon>FormAggiuntaInCoda.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCancellazione.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCancellazione.Designer.cs">
+      <DependentUpon>FormCancellazione.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLunghezzaRC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAggiuntaInCoda.resx">
       <DependentUpon>FormAggiuntaInCoda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCancellazione.resx">
+      <DependentUpon>FormCancellazione.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLunghezzaRC.resx">
       <DependentUpon>FormLunghezzaRC.cs</DependentUpon>
