@@ -82,7 +82,7 @@ namespace Form_Ripasso_pre_rientro
             inputs[6] = textBoxModBorgate.Text;
             inputs[7] = textBoxModExMunicipi.Text;
             inputs[8] = textBoxModEtichetta.Text;
-            if (campi < 9)
+            if (f.CheckMioValore(path))
             {
                 inputs[9] = r.Next(10, 21).ToString();
                 inputs[10] = "0";
@@ -95,13 +95,16 @@ namespace Form_Ripasso_pre_rientro
                     MessageBox.Show("Alcuni input sono vuoti o troppo lunghi", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (searchResult.Item2 != -1) 
+            else if (!f.CheckInptChar(campi, inputs))
             {
-                f.Modifica(path, campi, inputs, searchResult.Item2 + 1, lRecord);
-                MessageBox.Show("Modifica effettutata correttamente", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Alcuni input contengono caratteri non validi ('\\', ';', '#')", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-                MessageBox.Show("Si è verificato un errore durante la modifica", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                f.Modifica(path, campi, inputs, searchResult.Item2, lRecord);
+                MessageBox.Show("Modifica effettutata correttamente", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            this.Close();
         }
     }
 }

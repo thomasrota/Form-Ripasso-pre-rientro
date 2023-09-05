@@ -14,7 +14,6 @@ namespace Form_Ripasso_pre_rientro
     {
         public string path, pathTEMP;
         Funzioni f;
-        Random r;
         public Tuple<string, int> searchResult;
         int lRecord;
         public FormCancellazione()
@@ -23,7 +22,6 @@ namespace Form_Ripasso_pre_rientro
             path = @"rota.csv";
             pathTEMP = @"rotaTEMP.csv";
             f = new Funzioni();
-            r = new Random();
             lRecord = 504;
         }
         private void buttonCancella_Click(object sender, EventArgs e)
@@ -36,7 +34,7 @@ namespace Form_Ripasso_pre_rientro
             {
                 if (searchResult.Item2 != -1)
                 {
-                    f.Cancellazione(path, campi, searchResult.Item1, searchResult.Item2 + 1, lRecord);
+                    f.Cancellazione(path, campi, searchResult.Item1, searchResult.Item2, lRecord);
                     MessageBox.Show("Record eliminato correttamente", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -53,7 +51,7 @@ namespace Form_Ripasso_pre_rientro
             {
                 if (searchResult.Item2 != -1)
                 {
-                    f.Cancellazione(path, campi, searchResult.Item1, searchResult.Item2 + 1, lRecord);
+                    f.Cancellazione(path, campi, searchResult.Item1, searchResult.Item2, lRecord);
                     MessageBox.Show("Record recuperato correttamente", "Successo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else

@@ -176,6 +176,15 @@ namespace Form_Ripasso_pre_rientro
                 return true;
             return false;
         }
+        public bool CheckInptChar(int nCampi, string[] inputs)
+        {
+            for (int i = 0; i < nCampi; i++)
+            {
+                if (inputs[i].Contains(';') || inputs[i].Contains('\\') || inputs[i].Contains('#'))
+                    return false;
+            }
+            return true;
+        }
         // Funzione che aggiunge dei record in coda
         public void AggiungiInCoda(string path, int nCampi, string[] inputs)
         {
@@ -202,7 +211,7 @@ namespace Form_Ripasso_pre_rientro
                     while ((line = sr.ReadLine()) != null)
                     {
                         string[] fields = line.Split(';');
-                        if (fields[6] == search)
+                        if (fields[0] == search)
                         {
                             if (((fields[10] == 0.ToString() && !eliminato) || (fields[10] == 1.ToString() && eliminato)) && pos != 0)
                             {

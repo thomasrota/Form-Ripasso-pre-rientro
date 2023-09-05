@@ -37,7 +37,7 @@ namespace Form_Ripasso_pre_rientro
             inputs[6] = textBoxAddBorgate.Text;
             inputs[7] = textBoxAddExMunicipi.Text;
             inputs[8] = textBoxAddEtichetta.Text;
-            if (campi < 9)
+            if (f.CheckMioValore(path))
             {
                 inputs[9] = r.Next(10, 21).ToString();
                 inputs[10] = "0";
@@ -49,6 +49,10 @@ namespace Form_Ripasso_pre_rientro
                 else
                     MessageBox.Show("Alcuni input sono vuoti o troppo lunghi", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+            if (!f.CheckInptChar(campi, inputs))
+            {
+                MessageBox.Show("Alcuni input contengono caratteri non validi ('\\', ';', '#')", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             f.AggiungiInCoda(path, campi, inputs);
         }

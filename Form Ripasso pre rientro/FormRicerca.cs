@@ -30,7 +30,7 @@ namespace Form_Ripasso_pre_rientro
         }
         private void buttonRicerca_Click(object sender, EventArgs e)
         {
-            Tuple<string, int> searchResult = f.Ricerca(path, textBoxSearchMunicipio.Text);
+            Tuple<string, int> searchResult = f.Ricerca(path, textBoxSearchMunicipio.Text, false);
             if (textBoxSearchMunicipio.Text == "")
                 MessageBox.Show("Inserire un valore da cercare!", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
