@@ -29,6 +29,7 @@ namespace Form_Ripasso_pre_rientro
         {
             if (f.CheckLughezzaFissa(path) == false)
                 f.CreateLunghezzaFissa(path, pathTEMP);
+            f.ChangeChar(path, pathTEMP);
         }
         private void buttonAggMyValue_Click(object sender, EventArgs e)
         {

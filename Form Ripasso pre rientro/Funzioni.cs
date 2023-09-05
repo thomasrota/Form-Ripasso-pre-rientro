@@ -12,6 +12,26 @@ namespace Form_Ripasso_pre_rientro
 {
     public class Funzioni
     {
+        public void ChangeChar(string path, string pathTEMP)
+        {
+            string line;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                using (StreamWriter sw = new StreamWriter(pathTEMP))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        line = line.Replace('\uFFFD', '\'');
+                        sw.WriteLine(line);
+                    }
+                    sw.Close();
+                }
+                sr.Close();
+            }
+            File.Delete(path);
+            File.Move(pathTEMP, path);
+            File.Delete(pathTEMP);
+        }
         // Funzione che controlla se il file csv ha la lunghezza fissa
         public bool CheckLughezzaFissa(string path)
         {
@@ -162,6 +182,7 @@ namespace Form_Ripasso_pre_rientro
             string line = "";
             for (int i = 0; i < nCampi; i++)
                 line += inputs[i] + ";";
+            line = line.Replace('\uFFFD', '\'');
             using (StreamWriter sw = new StreamWriter(path, append: true))
             {
                 sw.WriteLine(line.PadRight(500) + "##");
@@ -191,6 +212,21 @@ namespace Form_Ripasso_pre_rientro
                 sr.Close();
             }
             return new Tuple<string, int>("", -1);
+        }
+        public void Modifica(string path, int nCampi, string[] inputs, int pos, int recordLen)
+        {
+            string line = "";
+            for (int i = 0; i < nCampi; i++)
+                line += inputs[i] + ";";
+            line = (line.PadRight(500) + "##");
+            line = line.Replace('\uFFFD', '\'');
+            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(line);
+                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
+                csvRanWriter.Write(bytes, 0, bytes.Length);
+                csvRanWriter.Close();
+            }
         }
     }
 }
