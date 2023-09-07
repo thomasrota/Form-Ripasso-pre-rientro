@@ -313,5 +313,21 @@ namespace Form_Ripasso_pre_rientro
             File.Move(pathTEMP, path);
             File.Delete(pathTEMP);
         }
-    }
+		public string[] NomeCampi(string path)
+		{
+			int n = ContaCampi(path);
+			string[] nomi = new string[n];
+			string linea;
+			using (StreamReader sr = File.OpenText(path))
+			{
+				linea = sr.ReadLine();
+				string[] campo = linea.Split(';');
+				for (int i = 0; i < nomi.Length; i++)
+				{
+					nomi[i] = campo[i];
+				}
+			}
+			return nomi;
+		}
+	}
 }

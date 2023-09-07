@@ -61,8 +61,9 @@ namespace Form_Ripasso_pre_rientro
         private void buttonVisualizza_Click(object sender, EventArgs e)
         {
             CloseFormsInput();
-        }
-        private void buttonRicerca_Click(object sender, EventArgs e)
+			OpenFormInput<FormVisualizzazione>();
+		}
+		private void buttonRicerca_Click(object sender, EventArgs e)
         {
             CloseFormsInput();
             OpenFormInput<FormRicerca>();
