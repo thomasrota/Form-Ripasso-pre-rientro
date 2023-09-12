@@ -192,10 +192,13 @@ namespace Form_Ripasso_pre_rientro
             for (int i = 0; i < nCampi; i++)
                 line += inputs[i] + ";";
             line = line.Replace('\uFFFD', '\'');
-            using (StreamWriter sw = new StreamWriter(path, append: true))
+            line = (line.PadRight(500) + "##");
+            using (FileStream rw = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
             {
-                sw.WriteLine(line.PadRight(500) + "##");
-                sw.Close();
+                byte[] bytes = Encoding.UTF8.GetBytes(line);
+                rw.Seek(0, SeekOrigin.End);
+                rw.Write(bytes, 0, bytes.Length);
+                rw.Close();
             }
         }
         // Ricercare un record per campo chiave a scelta (se esiste, utilizzare il campo che contiene dati univoci);
@@ -248,12 +251,12 @@ namespace Form_Ripasso_pre_rientro
                 line += inputs[i] + ";";
             line = (line.PadRight(500) + "##");
             line = line.Replace('\uFFFD', '\'');
-            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            using (FileStream rw = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(line);
-                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
-                csvRanWriter.Write(bytes, 0, bytes.Length);
-                csvRanWriter.Close();
+                rw.Seek(pos * recordLen, SeekOrigin.Current);
+                rw.Write(bytes, 0, bytes.Length);
+                rw.Close();
             }
         }
         public void Cancellazione(string path, int nCampi, string inputs, int pos, int recordLen)
@@ -264,12 +267,12 @@ namespace Form_Ripasso_pre_rientro
                 line += fields[i] + ";";
             line += "1;";
             line = line.PadRight(500) + "##";
-            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            using (FileStream rw = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(line);
-                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
-                csvRanWriter.Write(bytes, 0, bytes.Length);
-                csvRanWriter.Close();
+                rw.Seek(pos * recordLen, SeekOrigin.Current);
+                rw.Write(bytes, 0, bytes.Length);
+                rw.Close();
             }
         }
         public void Recupera(string path, int nCampi, string inputs, int pos, int recordLen)
@@ -280,12 +283,12 @@ namespace Form_Ripasso_pre_rientro
                 line += fields[i] + ";";
             line += "0;";
             line = line.PadRight(500) + "##";
-            using (FileStream csvRanWriter = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+            using (FileStream rw = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(line);
-                csvRanWriter.Seek(pos * recordLen, SeekOrigin.Current);
-                csvRanWriter.Write(bytes, 0, bytes.Length);
-                csvRanWriter.Close();
+                rw.Seek(pos * recordLen, SeekOrigin.Current);
+                rw.Write(bytes, 0, bytes.Length);
+                rw.Close();
             }
         }
         public void Ricompattazione(string path, string pathTEMP)

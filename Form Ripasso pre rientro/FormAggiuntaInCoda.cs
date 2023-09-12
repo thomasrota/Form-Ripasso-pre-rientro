@@ -55,6 +55,7 @@ namespace Form_Ripasso_pre_rientro
                 MessageBox.Show("Alcuni input contengono caratteri non validi ('\\', ';', '#')", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             f.AggiungiInCoda(path, campi, inputs);
+            this.Close();
         }
     }
 }
